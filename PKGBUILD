@@ -8,10 +8,19 @@ url="https://www.bertnase.de/npiet/"
 license=('GPL')
 depends=('libpng' 'gd' 'giflib')
 optdepends=('tk: for npietedit')
-source=("https://www.bertnase.de/npiet/$pkgname-$pkgver.tar.gz")
-md5sums=('aad7cf28dae509046078d4c98337e670')
-sha1sums=('340bc11ee1d1be4e36dfc6630e591a1c8ca289b3')
-sha256sums=('2ded856062abd73599e85e1e768ce6bc60ba2db22dc7d6a9b62763dca04b855a')
+source=("https://www.bertnase.de/npiet/$pkgname-$pkgver.tar.gz"
+        "c23-prototypes.patch")
+md5sums=('aad7cf28dae509046078d4c98337e670'
+         '3ff766b6e0d7ee7ed3bce67ed760eaab')
+sha1sums=('340bc11ee1d1be4e36dfc6630e591a1c8ca289b3'
+          '0b2347e21a7a3f468c694137f6317b3ded5e2d15')
+sha256sums=('2ded856062abd73599e85e1e768ce6bc60ba2db22dc7d6a9b62763dca04b855a'
+            'd07ce11afdae54e3dfde30f3c268601a68d9d41ed5abf779454c991a6a4b9185')
+
+prepare() {
+  cd "$srcdir/$pkgname-$pkgver"
+  patch -Np1 -i "$srcdir/c23-prototypes.patch"
+}
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"

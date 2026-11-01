@@ -1,0 +1,47 @@
+--- a/npiet.c
++++ b/npiet.c
+@@ -2769,7 +2769,7 @@
+  * save a trace picture on ^C too:
+  */
+ void
+-do_signal ()
++do_signal (int sig)
+ {
+   gd_save ();
+   exit (-6);
+--- a/npiet-foogol.y
++++ b/npiet-foogol.y
+@@ -189,18 +189,21 @@
+ /* forward: */
+ void yyerror (char *s);
+ int yylex (void);
+-void dump_blocks ();
+-struct _a_img * gen_block ();
+-void gd_create_img ();
+-int gdcol2idx ();
+-void gen_img_push ();
+-struct _a_decl *find_decl ();
+-void gen_img_check_wrap ();
+-void gen_mark ();
+-void gen_img_push_pos ();
+-void gen_wrap_right ();
+-int get_pixel ();
+-int check_fx ();
++struct _a_img;
++struct _a_block;
++struct _a_decl;
++void dump_blocks (char *off, struct _a_block *block);
++struct _a_img * gen_block (struct _a_block *block, struct _a_img *img, int *y_max);
++void gd_create_img (struct _a_img *img, int w, int h);
++int gdcol2idx (struct _a_img *img, int col);
++void gen_img_push (struct _a_img *img, long val);
++struct _a_decl *find_decl (char *var, struct _a_block *block);
++void gen_img_check_wrap (struct _a_img *img);
++void gen_mark (struct _a_img *img, int col);
++void gen_img_push_pos (struct _a_img *img, long val, int w_flag);
++void gen_wrap_right (struct _a_img *img, int expand_flag);
++int get_pixel (struct _a_img *img, int x, int y);
++int check_fx (int x1, int x2, int y);
+ 
+ 
+ 
